@@ -25,9 +25,8 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 RUN a2enmod rewrite
 
 # Create startup script
-RUN echo '#!/bin/bash\nphp artisan config:cache\nphp artisan migrate --force\napache2-foreground' > /start.sh
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 EXPOSE 80
-
 CMD ["/bin/bash", "/start.sh"]
